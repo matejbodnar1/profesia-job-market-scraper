@@ -92,6 +92,10 @@ while True:
 
 df = pd.DataFrame(jobs)
 
+if df.empty:
+    print("No jobs scraped. Skipping BigQuery upload.")
+    exit()
+
 df.to_csv("jobs.csv", index=False, encoding="utf-8-sig")
 
 print(df)
