@@ -47,6 +47,10 @@ while True:
 
     for row in job_rows:
         title_link = row.select_one("h2 a")
+
+        if not title_link:
+            continue
+
         company = row.find("span", class_="employer")
         location = row.find("span", class_="job-location")
         salary = row.find("span", class_="label")
