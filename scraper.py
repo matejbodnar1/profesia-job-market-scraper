@@ -39,7 +39,11 @@ while True:
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.text, "html.parser")
 
-    job_rows = soup.find_all("li", class_="list-row")
+    job_rows = [
+    row for row in soup.find_all("li", class_="list-row")
+    if "native-agent" not in row.get("class", [])
+    ]
+
 
     if len(job_rows) == 0:
         print(f"No jobs found on page {page_num}. Stopping.")
@@ -74,6 +78,10 @@ while True:
             salary_text = None
 
         salary_min_eur, salary_max_eur = extract_salary_numbers(salary_text or "")
+
+        if not job_title or not company_text or not job_url:
+            print("Skipping invalid row")
+            continue
 
         jobs.append({
             "collected_date": date.today(),
