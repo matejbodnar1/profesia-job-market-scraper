@@ -6,6 +6,7 @@ import pandas as pd
 from datetime import date
 from google.cloud import bigquery
 
+# extract salary function
 
 def extract_salary_numbers(salary_text):
     numbers = re.findall(r"\d[\d\s]*", salary_text)
