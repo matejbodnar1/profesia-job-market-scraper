@@ -3,8 +3,14 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from datetime import date
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from google.cloud import bigquery
+
+# date handling for gcloud
+
+bratislava_tz = ZoneInfo("Europe/Bratislava")
+collected_date = datetime.now(bratislava_tz).date()
 
 # extract salary function
 
@@ -37,7 +43,7 @@ while True:
 
     print(f"Scraping page {page_num}: {url}")
 
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=30)
     soup = BeautifulSoup(response.text, "html.parser")
 
     job_rows = [
@@ -85,7 +91,7 @@ while True:
             continue
 
         jobs.append({
-            "collected_date": date.today(),
+            "collected_date": collected_date,
             "job_title": job_title,
             "company": company_text,
             "location_text": location_text,
