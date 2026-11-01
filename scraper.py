@@ -38,7 +38,7 @@ page_num = 1
 while True:
     url = (
         "https://www.profesia.sk/praca/slovenska-republika/"
-        f"?count_days=1&search_anywhere=data+analyst&sort_by=relevance&page_num={page_num}"
+        f"?count_days=7&search_anywhere=data+analyst&sort_by=relevance&page_num={page_num}"
     )
 
     print(f"Scraping page {page_num}: {url}")
