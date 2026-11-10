@@ -37,6 +37,8 @@ while True:
     print(f"Scraping page {page_num}: {url}")
 
     response = requests.get(url, headers=headers)
+    response.raise_for_status()
+
     soup = BeautifulSoup(response.text, "html.parser")
 
     job_rows = [
